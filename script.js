@@ -1,3 +1,4 @@
+//define the available moves
 const moves = ["rock", "paper", "scissors"];
 
 //obtain player's choice, sanitize it and keep asking if it isn't valid
@@ -90,9 +91,3 @@ const game = () => {
 };
 
 game();
-
-//console.log(`CPU selected ${getComputerChoice()}`);
-//console.log(`Player selected ${getPlayerChoice()}`);
-
-//obtain computer's choice
-//compare RPS to return the winner
