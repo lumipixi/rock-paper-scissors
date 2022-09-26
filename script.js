@@ -22,11 +22,13 @@ const getComputerChoice = () => {
   return computerChoice;
 };
 
+//create a scoreboard object
 const scores = {
   player: 0,
   cpu: 0,
 };
 
+//call to add scores if necessary
 const increaseScore = (winner) => {
   winner === "player" ? scores.player++ : scores.cpu++;
 };
@@ -41,21 +43,53 @@ const playRound = (playerChoice, computerChoice) => {
   if (playerChoice === computerChoice) {
     console.log("Tie!");
   } else if (playerChoice === "rock") {
-    computerChoice === "paper"
-      ? console.log("You lose! Paper beats Rock")
-      : console.log("You win! Rock beats Scissors");
+    if (computerChoice === "paper") {
+      console.log("YOU LOSE! Paper beats Rock");
+      increaseScore("cpu");
+    } else {
+      console.log("YOU WIN! Rock beats Scissors");
+      increaseScore("player");
+    }
   } else if (playerChoice === "paper") {
-    computerChoice === "scissors"
-      ? console.log("You lose! Scissors beats Paper")
-      : console.log("You win! Paper beats Rock");
+    if (computerChoice === "scissors") {
+      console.log("YOU LOSE! Scissors beats Paper");
+      increaseScore("cpu");
+    } else {
+      console.log("YOU WIN! Paper beats Rock");
+      increaseScore("player");
+    }
   } else if (playerChoice === "scissors") {
-    computerChoice === "rock"
-      ? console.log("You lose! Rock beats Scissors")
-      : console.log("You win! Scissors beats Paper");
+    if (computerChoice === "rock") {
+      console.log("YOU LOSE! Rock beats Scissors");
+      increaseScore("cpu");
+    } else {
+      console.log("YOU WIN! Scissors beats Paper");
+      increaseScore("player");
+    }
   }
 };
 
-playRound(getPlayerChoice(), getComputerChoice());
+//main game loop, play five rounds
+const game = () => {
+  for (let i = 0; i < 5; i++) {
+    console.log(">> Turn " + i);
+    playRound(getPlayerChoice(), getComputerChoice());
+    console.log(
+      `SCOREBOARD\n` + `You: ${scores.player}\n` + `Computer: ${scores.cpu}`
+    );
+    console.log("");
+  }
+  
+  if (scores.player === scores.cpu) {
+    console.log("FINAL RESULT: TIE!");
+  } else if (scores.player < scores.cpu) {
+    console.log("FINAL RESULT: YOU LOSE!");
+  } else {
+    console.log("FINAL RESULT: YOU WIN!");
+  }
+};
+
+game();
 
 //console.log(`CPU selected ${getComputerChoice()}`);
 //console.log(`Player selected ${getPlayerChoice()}`);
