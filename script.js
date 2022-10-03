@@ -1,12 +1,11 @@
 //define the available moves
-const moves = ["Rock", "Paper", "Scissors"];
+const moves = ["rock", "paper", "scissors"];
 
-//obtain player's choice, sanitize it and keep asking if it isn't valid
-const getplayerSelection = (e) => {
-  let playerSelection = e.target.innerText;
-  alert(playerSelection);
-  return playerSelection;
-};
+// const getplayerSelection = (e) => {
+//   let playerSelection = e.target.getAttribute("data-move");
+//   console.log(playerSelection);
+//   return playerSelection;
+// };
 
 //obtain computer's choice by randomly outputting rock papper scissors
 const getComputerChoice = () => {
@@ -15,7 +14,6 @@ const getComputerChoice = () => {
   return computerChoice;
 };
 
-//create a scoreboard object
 const scores = {
   player: 0,
   cpu: 0,
@@ -27,32 +25,31 @@ const increaseScore = (winner) => {
 };
 
 //play round of RPS using both selections as argument
-const playRound = (playerSelection, computerChoice) => {
+const fight = (playerMove, cpuMove) => {
   console.log(
-    `Player selected ${playerSelection}.\n` +
-      `Computer selected ${computerChoice}.`
+    `Player selected ${playerMove}.\n` + `Computer selected ${cpuMove}.`
   );
 
-  if (playerSelection === computerChoice) {
+  if (playerMove === cpuMove) {
     console.log("Tie!");
-  } else if (playerSelection === "Rock") {
-    if (computerChoice === "Paper") {
+  } else if (playerMove === "rock") {
+    if (cpuMove === "paper") {
       console.log("YOU LOSE! Paper beats Rock");
       increaseScore("cpu");
     } else {
       console.log("YOU WIN! Rock beats Scissors");
       increaseScore("player");
     }
-  } else if (playerSelection === "Paper") {
-    if (computerChoice === "Scissors") {
+  } else if (playerMove === "paper") {
+    if (cpuMove === "scissors") {
       console.log("YOU LOSE! Scissors beats Paper");
       increaseScore("cpu");
     } else {
       console.log("YOU WIN! Paper beats Rock");
       increaseScore("player");
     }
-  } else if (playerSelection === "Scissors") {
-    if (computerChoice === "Rock") {
+  } else if (playerMove === "scissors") {
+    if (cpuMove === "rock") {
       console.log("YOU LOSE! Rock beats Scissors");
       increaseScore("cpu");
     } else {
@@ -66,7 +63,7 @@ const playRound = (playerSelection, computerChoice) => {
 const game = () => {
   for (let i = 0; i < 5; i++) {
     console.log(">> Turn " + i);
-    playRound(getplayerSelection(), getComputerChoice());
+    fight(getplayerSelection(), getComputerChoice());
     console.log(
       `SCOREBOARD\n` + `You: ${scores.player}\n` + `Computer: ${scores.cpu}`
     );
@@ -82,5 +79,21 @@ const game = () => {
   }
 };
 
+const fakeRound = (e) => {
+  const playerMove = e.target.getAttribute("data-move");
+  const cpuMove = getComputerChoice();
+
+  fight(playerMove, cpuMove);
+
+  scoreboard.innerText = `
+  Player: ${scores.player}
+  CPU: ${scores.cpu}`.trim();
+};
+
 const buttons = document.querySelectorAll(".playerBoard button");
-buttons.forEach((btn) => btn.addEventListener("click", getplayerSelection));
+buttons.forEach((btn) => btn.addEventListener("click", fakeRound));
+
+const scoreboard = document.querySelector(".scoreboard");
+scoreboard.innerText = `
+  Player: ${scores.player}
+  CPU: ${scores.cpu}`.trim();
