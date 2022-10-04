@@ -22,14 +22,14 @@ body {
 .container {
   display: flex;
   justify-content: space-between;
-  align-items:stretch;
-  height: 80vh;
+  /* align-items:center; */
+  height: 90vh;
 }
 
 .gameboard {
   display: flex;
   flex-flow: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .cpu-moves,
@@ -37,10 +37,6 @@ body {
   display: flex;
   gap: 2em;
 }
-
-/* .cpu-moves {
-  margin-bottom: 40px;
-} */
 
 .move-button {
   font-size: 4em;
