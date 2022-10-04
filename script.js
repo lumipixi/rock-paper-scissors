@@ -31,29 +31,29 @@ const fight = (playerMove, cpuMove) => {
   );
 
   if (playerMove === cpuMove) {
-    history.innerText += `Turn ${turn}: Tie!\n`;
+    history.innerText += `\nTurn ${turn}: Tie!\n`;
   } else if (playerMove === "rock") {
     if (cpuMove === "paper") {
-      history.innerText += `Turn ${turn}: YOU LOSE! Paper beats Rock\n`;
+      history.innerText += `\nTurn ${turn}: Defeat. CPU's Paper wrapped your Rock till suffocation\n`;
       increaseScore("cpu");
     } else {
-      history.innerText += `Turn ${turn}: Rock beats Scissors\n`;
+      history.innerText += `\nTurn ${turn}: Win! Your ROCK crushed the CPU's Scissors to bits\n`;
       increaseScore("player");
     }
   } else if (playerMove === "paper") {
     if (cpuMove === "scissors") {
-      history.innerText += `Turn ${turn}: YOU LOSE! Scissors beats Paper\n`;
+      history.innerText += `\nTurn ${turn}: Defeat. CPU's Scissors cut your Paper into a million pieces\n`;
       increaseScore("cpu");
     } else {
-      history.innerText += `Turn ${turn}: YOU WIN! Paper beats Rock\n`;
+      history.innerText += `\nTurn ${turn}: Win! Your Paper wrapped the CPU's Rock till suffocation\n`;
       increaseScore("player");
     }
   } else if (playerMove === "scissors") {
     if (cpuMove === "rock") {
-      history.innerText += `Turn ${turn}: YOU LOSE! Rock beats Scissors\n`;
+      history.innerText += `\nTurn ${turn}: Defeat. CPU's Rock crushed your Scissors to bits\n`;
       increaseScore("cpu");
     } else {
-      history.innerText += `Turn ${turn}: YOU WIN! Scissors beats Paper\n`;
+      history.innerText += `\nTurn ${turn}: Win! Your Scissors cut the CPU's Paper into a million pieces\n`;
       increaseScore("player");
     }
   }
@@ -102,8 +102,11 @@ const playRound = (e) => {
 
 const scoreboard = document.querySelector(".scoreboard");
 const history = document.querySelector(".history");
-const buttons = document.querySelectorAll(".playerBoard button");
+const buttons = document.querySelectorAll(".move-button");
 buttons.forEach((btn) => btn.addEventListener("click", playRound));
+buttons.forEach((btn) => btn.addEventListener("mouseenter", () => btn.style.backgroundColor = "blanchedalmond"));
+buttons.forEach((btn) => btn.addEventListener("mouseleave", () => btn.style.backgroundColor = "pink"));
+
 
 let turn = 1;
 updateScore()
