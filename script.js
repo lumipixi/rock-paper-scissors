@@ -31,29 +31,29 @@ const fight = (playerMove, cpuMove) => {
   );
 
   if (playerMove === cpuMove) {
-    console.log("Tie!");
+    history.innerText += `Turn ${turn}: Tie!\n`;
   } else if (playerMove === "rock") {
     if (cpuMove === "paper") {
-      console.log("YOU LOSE! Paper beats Rock");
+      history.innerText += `Turn ${turn}: YOU LOSE! Paper beats Rock\n`;
       increaseScore("cpu");
     } else {
-      console.log("YOU WIN! Rock beats Scissors");
+      history.innerText += `Turn ${turn}: Rock beats Scissors\n`;
       increaseScore("player");
     }
   } else if (playerMove === "paper") {
     if (cpuMove === "scissors") {
-      console.log("YOU LOSE! Scissors beats Paper");
+      history.innerText += `Turn ${turn}: YOU LOSE! Scissors beats Paper\n`;
       increaseScore("cpu");
     } else {
-      console.log("YOU WIN! Paper beats Rock");
+      history.innerText += `Turn ${turn}: YOU WIN! Paper beats Rock\n`;
       increaseScore("player");
     }
   } else if (playerMove === "scissors") {
     if (cpuMove === "rock") {
-      console.log("YOU LOSE! Rock beats Scissors");
+      history.innerText += `Turn ${turn}: YOU LOSE! Rock beats Scissors\n`;
       increaseScore("cpu");
     } else {
-      console.log("YOU WIN! Scissors beats Paper");
+      history.innerText += `Turn ${turn}: YOU WIN! Scissors beats Paper\n`;
       increaseScore("player");
     }
   }
@@ -79,21 +79,32 @@ const game = () => {
   }
 };
 
-const fakeRound = (e) => {
+const updateScore = () => {
+  scoreboard.innerText = `
+    Player: ${scores.player}
+    CPU: ${scores.cpu}`.trim();
+}
+
+const checkTurn = () => {
+  if (turn === 0) alert("Game Over")
+}
+
+const playRound = (e) => {
   const playerMove = e.target.getAttribute("data-move");
   const cpuMove = getComputerChoice();
 
   fight(playerMove, cpuMove);
 
-  scoreboard.innerText = `
-  Player: ${scores.player}
-  CPU: ${scores.cpu}`.trim();
+  updateScore()
+  turn++
 };
 
-const buttons = document.querySelectorAll(".playerBoard button");
-buttons.forEach((btn) => btn.addEventListener("click", fakeRound));
 
 const scoreboard = document.querySelector(".scoreboard");
-scoreboard.innerText = `
-  Player: ${scores.player}
-  CPU: ${scores.cpu}`.trim();
+const history = document.querySelector(".history");
+const buttons = document.querySelectorAll(".playerBoard button");
+buttons.forEach((btn) => btn.addEventListener("click", playRound));
+
+let turn = 1;
+updateScore()
+
