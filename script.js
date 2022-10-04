@@ -1,30 +1,33 @@
-//define the available moves
 const moves = ["rock", "paper", "scissors"];
-
-// const getplayerSelection = (e) => {
-//   let playerSelection = e.target.getAttribute("data-move");
-//   console.log(playerSelection);
-//   return playerSelection;
-// };
-
-//obtain computer's choice by randomly outputting rock papper scissors
-const getComputerChoice = () => {
-  let randomNumber = Math.floor(Math.random() * moves.length);
-  let computerChoice = moves[randomNumber];
-  return computerChoice;
-};
 
 const scores = {
   player: 0,
   cpu: 0,
 };
 
-//call to add scores if necessary
-const increaseScore = (winner) => {
-  winner === "player" ? scores.player++ : scores.cpu++;
+const playTurn = (e) => {
+  const playerMove = e.target.getAttribute("data-move");
+  const cpuMove = getComputerChoice();
+
+  if (turn === 5) {
+    fight(playerMove, cpuMove);
+    updateScore();
+    checkWinner();
+    buttons.forEach((btn) => btn.removeEventListener("click", playTurn));
+  } else {
+    fight(playerMove, cpuMove);
+    updateScore();
+    turn++;
+  }
 };
 
-//play round of RPS using both selections as argument
+//obtain computer's choice with a random number
+const getComputerChoice = () => {
+  let randomNumber = Math.floor(Math.random() * moves.length);
+  let computerChoice = moves[randomNumber];
+  return computerChoice;
+};
+
 const fight = (playerMove, cpuMove) => {
   console.log(
     `Player selected ${playerMove}.\n` + `Computer selected ${cpuMove}.`
@@ -59,23 +62,11 @@ const fight = (playerMove, cpuMove) => {
   }
 };
 
-//main game loop, play five rounds
-const game = () => {
-  for (let i = 0; i < 5; i++) {
-    console.log(">> Turn " + i);
-    fight(getplayerSelection(), getComputerChoice());
-    console.log(
-      `SCOREBOARD\n` + `You: ${scores.player}\n` + `Computer: ${scores.cpu}`
-    );
-    console.log("");
-  }
-
-  if (scores.player === scores.cpu) {
-    console.log("FINAL RESULT: TIE!");
-  } else if (scores.player < scores.cpu) {
-    console.log("FINAL RESULT: YOU LOSE!");
+const increaseScore = (winner) => {
+  if (winner === "player") {
+    scores.player++;
   } else {
-    console.log("FINAL RESULT: YOU WIN!");
+    scores.cpu++;
   }
 };
 
@@ -83,31 +74,44 @@ const updateScore = () => {
   scoreboard.innerText = `
     Player: ${scores.player}
     CPU: ${scores.cpu}`.trim();
-}
-
-const checkTurn = () => {
-  if (turn === 0) alert("Game Over")
-}
-
-const playRound = (e) => {
-  const playerMove = e.target.getAttribute("data-move");
-  const cpuMove = getComputerChoice();
-
-  fight(playerMove, cpuMove);
-
-  updateScore()
-  turn++
 };
 
+const checkWinner = () => {
+  if (scores.player > scores.cpu) {
+    history.append("\nYou win the game!");
+  } else if (scores.player === scores.cpu) {
+    history.append("\nThis is a tie...");
+  } else {
+    history.append("\nYou lost. Better luck next time.");
+  }
+};
+
+const resetGame = () => {
+  turn = 1;
+  scores.player = 0;
+  scores.cpu = 0;
+  history.innerText = "";
+  updateScore();
+  buttons.forEach((btn) => btn.addEventListener("click", playTurn));
+};
 
 const scoreboard = document.querySelector(".scoreboard");
 const history = document.querySelector(".history");
 const buttons = document.querySelectorAll(".move-button");
-buttons.forEach((btn) => btn.addEventListener("click", playRound));
-buttons.forEach((btn) => btn.addEventListener("mouseenter", () => btn.style.backgroundColor = "blanchedalmond"));
-buttons.forEach((btn) => btn.addEventListener("mouseleave", () => btn.style.backgroundColor = "pink"));
+const resetButton = document.querySelector(".reset-button");
 
+buttons.forEach((btn) => btn.addEventListener("click", playTurn));
+buttons.forEach((btn) =>
+  btn.addEventListener(
+    "mouseenter",
+    () => (btn.style.backgroundColor = "blanchedalmond")
+  )
+);
+buttons.forEach((btn) =>
+  btn.addEventListener("mouseleave", () => (btn.style.backgroundColor = "pink"))
+);
+
+resetButton.addEventListener("click", resetGame);
 
 let turn = 1;
-updateScore()
-
+updateScore();
