@@ -97,7 +97,7 @@ const resetGame = () => {
 
 const scoreboard = document.querySelector(".scoreboard");
 const history = document.querySelector(".history");
-const buttons = document.querySelectorAll(".move-button");
+const buttons = document.querySelectorAll(".player-moves .move-button");
 const resetButton = document.querySelector(".reset-button");
 
 buttons.forEach((btn) => btn.addEventListener("click", playTurn));

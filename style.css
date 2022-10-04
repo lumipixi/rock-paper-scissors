@@ -1,5 +1,111 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: rgb(137, 229, 254);
+  background: linear-gradient(
+    180deg,
+    rgba(137, 229, 254, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(254, 113, 201, 1) 100%
+  );
+  background-attachment: fixed;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items:stretch;
+  height: 80vh;
+}
+
+.gameboard {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
+.cpu-moves,
+.player-moves {
+  display: flex;
+  gap: 2em;
+}
+
+/* .cpu-moves {
+  margin-bottom: 40px;
+} */
+
 .move-button {
-  font-size: 2em;
-  line-height: 2em;
+  font-size: 4em;
+  width: 2em;
+  line-height: 2.5em;
+  border-radius: 10px;
+}
+
+.cpu-moves .move-button {
+  background-color: skyblue;
+}
+
+.player-moves .move-button {
   background-color: pink;
+}
+
+.score-player {
+  align-self: flex-end;
+}
+
+.sidebar {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  width: 30%;
+}
+
+.turn-banner {
+  background-color: aliceblue;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding-inline: 1em;
+}
+
+.history {
+  margin-block-end: auto;
+  height: 100%;
+  background-color: hsla(208, 100%, 97%, 0.32);
+  padding-inline: 1em;
+  /* hyphens: auto; */
+  /* overflow-wrap: break-word; */
+}
+
+.side-menu {
+  display: flex;
+  justify-content:space-between;
+}
+
+.side-menu button {
+  width: 100%;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  border-width: 0px;
+  background-color: aliceblue;
+}
+
+.side-menu .reset-button,
+.side-menu .help-button{
+  border-right-width: 1px;
+  border-right-color: blanchedalmond;
+}
+
+.side-menu .reset-button {
+  border-bottom-left-radius: 10px;
+}
+.side-menu .options-button {
+  border-bottom-right-radius: 10px;
 }

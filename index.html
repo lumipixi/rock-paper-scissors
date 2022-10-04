@@ -5,21 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./script.js" defer></script>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="container">
-      <button class="reset-button">Reset game</button>
-      <div class="scoreboard"></div>
-      <div class="playerboard">
-        <br>
-        <button class="move-button" data-move="rock">🗿</button>
-        <button class="move-button" data-move="paper">📃</button>
-        <button class="move-button" data-move="scissors">✂</button>
-        <p>Click one of the buttons to play.</p>
+      <div class="gameboard">
+        <div class="score-cpu">🟩🟥🟩</div>
+        <div class="cpu-moves">
+          <button class="move-button" data-move="rock">🗿</button>
+          <button class="move-button" data-move="paper">📃</button>
+          <button class="move-button" data-move="scissors">✂</button>
+        </div>
+        <div class="player-moves">
+          <button class="move-button" data-move="rock">🗿</button>
+          <button class="move-button" data-move="paper">📃</button>
+          <button class="move-button" data-move="scissors">✂</button>
+        </div>
+        <div class="score-player">🟩🟩🟩🟥</div>
       </div>
-      <div class="history"></div>
+      <div class="sidebar">
+        <div class="turn-banner">Turn X
+          <div class="scoreboard"></div>
+        </div>
+        <div class="history"></div>
+        <div class="side-menu">
+          <button class="reset-button">🔄</button>
+          <button class="help-button">❓</button>
+          <button class="options-button">⚙</button>
+        </div>
+      </div>
     </div>
   </body>
 </html>
